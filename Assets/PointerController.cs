@@ -7,9 +7,8 @@ public class PointerController : MonoBehaviour
     public float lagValue;
 
     [Header("Mouse Values")]
-    Vector3 mousePos;
-    Vector3 prevMousePos;
-    Vector3 mouseDelta;
+    float mouseXVel;
+    float mouseYVel;
 
     // Start is called before the first frame update
     void Start()
@@ -20,16 +19,17 @@ public class PointerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseDelta = mousePos - prevMousePos;
+        mouseXVel = Input.GetAxis("Mouse X");
+        mouseYVel = Input.GetAxis("Mouse Y");
 
-        transform.position += mouseDelta * lagValue;
-        transform.position = new Vector3(transform.position.x, transform.position.y, 10);
+        transform.Translate(mouseXVel * lagValue, mouseYVel * lagValue, 0);
 
         if(lagValue <= 1 && lagValue >= 0.1)
             lagValue += (float)(Input.GetAxis("Mouse ScrollWheel"));
-
-        prevMousePos = mousePos;
+        if (lagValue < 0.1)
+            lagValue = 0.1f;
+        if (lagValue > 1)
+            lagValue = 1;
 
         if (Input.GetMouseButtonDown(0))
         {
