@@ -7,6 +7,9 @@ public class PointerController : MonoBehaviour
     public float lagValue;
 
     [Header("Mouse Values")]
+    public float mouseXBound;
+    public float mouseYBound;
+
     float mouseXVel;
     float mouseYVel;
 
@@ -31,10 +34,24 @@ public class PointerController : MonoBehaviour
         if (lagValue > 1)
             lagValue = 1;
 
+        ScreenBounds();
+
         if (Input.GetMouseButtonDown(0))
         {
             if (Cursor.visible)
                 Cursor.visible = false;
         }
+    }
+
+    private void ScreenBounds()
+    {
+        if(transform.position.x < -mouseXBound)
+            transform.position = new Vector3(-mouseXBound, transform.position.y, transform.position.z);
+        if (transform.position.x > mouseXBound)
+            transform.position = new Vector3(mouseXBound, transform.position.y, transform.position.z);
+        if (transform.position.y < -mouseYBound)
+            transform.position = new Vector3(transform.position.x, -mouseYBound, transform.position.z);
+        if (transform.position.y > mouseYBound)
+            transform.position = new Vector3(transform.position.x, mouseYBound, transform.position.z);
     }
 }
