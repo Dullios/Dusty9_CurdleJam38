@@ -13,6 +13,10 @@ public class PointerController : MonoBehaviour
     float mouseXVel;
     float mouseYVel;
 
+    [Header("Raycast Values")]
+    public int raycastRange;
+    public LayerMask groceryMask;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +44,24 @@ public class PointerController : MonoBehaviour
         {
             if (Cursor.visible)
                 Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
+            CastRay();
+        }
+    }
+
+    void CastRay()
+    {
+        Vector3 mouseViewport = Camera.main.WorldToViewportPoint(transform.position);
+        Ray cameraRay = Camera.main.ViewportPointToRay(mouseViewport);
+
+        RaycastHit cameraHit;
+
+        Debug.DrawRay(cameraRay.origin, cameraRay.direction * raycastRange, Color.green, 1f);
+
+        if (Physics.Raycast(cameraRay, out cameraHit, raycastRange, groceryMask))
+        {
+            Destroy(cameraHit.transform.gameObject);
         }
     }
 
