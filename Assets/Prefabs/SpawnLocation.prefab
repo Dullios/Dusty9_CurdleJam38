@@ -51,6 +51,8 @@ MonoBehaviour:
   - {fileID: 8115136112095013441, guid: 32c0f77669fc539479e9437039f918e9, type: 3}
   - {fileID: 5793244373447848607, guid: ab0084e062c82e645b66c62e582168a7, type: 3}
   - {fileID: 2986392924519457261, guid: 9718ebc8e4daf0e4094d610dade77e19, type: 3}
+  - {fileID: 3410686269587668931, guid: e3652894ab9dd384390060bf6c7a9ea6, type: 3}
+  - {fileID: 1288847333963135802, guid: a08ffffc9cb9db74997dfee3e9b41a16, type: 3}
   spawnTimeMin: 2.5
   spawnTimeMax: 5
   restockTimeMin: 0

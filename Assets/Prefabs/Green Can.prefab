@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6309932042922313043}
   - component: {fileID: 1908135051930097886}
   - component: {fileID: 972843857706936171}
+  - component: {fileID: 5098023403122981992}
   m_Layer: 6
   m_Name: Green Can
   m_TagString: Untagged
@@ -107,3 +108,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &5098023403122981992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8115136112095013441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0c1ec3b5e48f249b6d8273c6935907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemProperties:
+  - {fileID: 11400000, guid: 267076eba211b7f409f9d23b8238d1c9, type: 2}
+  - {fileID: 11400000, guid: b33c897d3abd0a64882c22bb0de9a9bb, type: 2}

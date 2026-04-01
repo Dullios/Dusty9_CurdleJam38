@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8392901203033530487}
   - component: {fileID: 1797139166390655369}
   - component: {fileID: 6985110828744723899}
+  - component: {fileID: 5900370938391332066}
   m_Layer: 6
   m_Name: Red Box
   m_TagString: Untagged
@@ -105,3 +106,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5900370938391332066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793244373447848607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0c1ec3b5e48f249b6d8273c6935907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemProperties:
+  - {fileID: 11400000, guid: fc430e9f18eb25d4ea721f29157e54b5, type: 2}
+  - {fileID: 11400000, guid: 29d75c41081529d4f847cebb8dfbf5a5, type: 2}

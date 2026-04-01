@@ -61,8 +61,22 @@ public class PointerController : MonoBehaviour
 
         if (Physics.Raycast(cameraRay, out cameraHit, raycastRange, groceryMask))
         {
-            Destroy(cameraHit.transform.gameObject);
+            if(CheckProperty(cameraHit.transform.GetComponent<ItemProperties>()))
+            {
+                Destroy(cameraHit.transform.gameObject);
+            }
         }
+    }
+
+    bool CheckProperty(ItemProperties itemProp)
+    {
+        foreach(Scriptable_ItemProperty scriptProp in itemProp.itemProperties)
+        {
+            if (scriptProp.itemProperty == GameManager.Instance.currentTarget)
+                return true;
+        }
+
+        return false;
     }
 
     private void ScreenBounds()
