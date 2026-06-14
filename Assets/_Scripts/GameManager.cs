@@ -28,48 +28,55 @@ public class GameManager : MonoBehaviour
 
     [Header("Target Variables")]
     public TextMeshProUGUI targetLabel;
-    string[] itemTargetList = {"Box", "Can", "Red", "Green", "Blue", "Yellow"};
-    public string currentTarget;
-    string previousTarget;
-    public float targetTimer;
+    string[] categoryList = {"Box", "Can", "Red", "Green", "Blue", "Yellow"};
+    public string currentCategory;
+    [SerializeField] float categoryTimer;
+    public float categoryTimerMin;
+    public float categoryTimerMax;
 
-    bool targetChanged;
+    bool categoryChanged;
 
     [Header("Score Variables")]
     public TextMeshProUGUI scoreLabel;
-    public float score;
+    [SerializeField] float score;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(ChangeTarget(0.5f));
+        StartCoroutine(ChangeCategory(0.5f));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(targetChanged)
+        if(categoryChanged)
         {
-            StartCoroutine(ChangeTarget(targetTimer));
-            targetChanged = false;
+            StartCoroutine(ChangeCategory(categoryTimer));
+            categoryChanged = false;
         }
     }
 
-    IEnumerator ChangeTarget(float _targetTime)
+    public void UpdateScore(float _score)
+    {
+        score += _score;
+        scoreLabel.text = "Cost: " + score.ToString("C");
+    }
+
+    IEnumerator ChangeCategory(float _targetTime)
     {
         yield return new WaitForSeconds(_targetTime);
 
-        string tempTarget;
+        string tempCategory;
         do
         {
-            tempTarget = itemTargetList[Random.Range(0, itemTargetList.Length)];
-        } while (tempTarget == previousTarget);
+            tempCategory = categoryList[Random.Range(0, categoryList.Length)];
+        } while (tempCategory == currentCategory);
 
-        previousTarget = currentTarget;
-        currentTarget = tempTarget;
+        currentCategory = tempCategory;
 
-        targetLabel.text = currentTarget;
+        targetLabel.text = currentCategory;
 
-        targetChanged = true;
+        categoryTimer = Random.Range(categoryTimerMin, categoryTimerMax);
+        categoryChanged = true;
     }
 }

@@ -123,3 +123,4 @@ MonoBehaviour:
   itemProperties:
   - {fileID: 11400000, guid: e05f105ab7b150f4eaf51556576e0c1e, type: 2}
   - {fileID: 11400000, guid: 267076eba211b7f409f9d23b8238d1c9, type: 2}
+  cost: 1.1

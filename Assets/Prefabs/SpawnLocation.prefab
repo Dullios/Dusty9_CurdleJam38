@@ -55,6 +55,6 @@ MonoBehaviour:
   - {fileID: 1288847333963135802, guid: a08ffffc9cb9db74997dfee3e9b41a16, type: 3}
   spawnTimeMin: 2.5
   spawnTimeMax: 5
-  restockTimeMin: 0
-  restockTimeMax: 0
+  restockTimeMin: 0.5
+  restockTimeMax: 1
   angularSpeed: -0.5

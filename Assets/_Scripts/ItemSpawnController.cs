@@ -6,6 +6,7 @@ public class ItemSpawnController : MonoBehaviour
 {
     [Header("Item Values")]
     public GameObject[] itemList;
+    public GameObject displayItem;
     public float spawnTimeMin;
     public float spawnTimeMax;
 
@@ -16,10 +17,12 @@ public class ItemSpawnController : MonoBehaviour
     public float angularSpeed;
     bool hasSpawned;
 
+    Coroutine spawnCoroutine;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnItem(0.1f));
+        spawnCoroutine = StartCoroutine(SpawnItem(0.1f));
     }
 
     // Update is called once per frame
@@ -29,7 +32,7 @@ public class ItemSpawnController : MonoBehaviour
 
         if(hasSpawned)
         {
-            StartCoroutine(SpawnItem(Random.Range(spawnTimeMin, spawnTimeMax)));
+            spawnCoroutine = StartCoroutine(SpawnItem(Random.Range(spawnTimeMin, spawnTimeMax)));
             hasSpawned = false;
         }
     }
@@ -38,14 +41,26 @@ public class ItemSpawnController : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
 
-        RemoveChild();
-        Instantiate(itemList[Random.Range(0, itemList.Length)], transform);
+        RemoveItem();
+        displayItem = Instantiate(itemList[Random.Range(0, itemList.Length)], transform);
+        displayItem.GetComponent<ItemProperties>().itemSpawner = this;
         hasSpawned = true;
     }
 
-    void RemoveChild()
+    public void ItemClicked()
     {
-        if (transform.childCount > 0)
-            Destroy(transform.GetChild(0).gameObject);
+        StopCoroutine(spawnCoroutine);
+        RemoveItem();
+
+        StartCoroutine(SpawnItem(Random.Range(restockTimeMin, restockTimeMax)));
+    }
+
+    void RemoveItem()
+    {
+        if (displayItem != null)
+        {
+            Destroy(displayItem);
+            displayItem = null;
+        }
     }
 }

@@ -31,12 +31,12 @@ public class PointerController : MonoBehaviour
 
         transform.Translate(mouseXVel * lagValue, mouseYVel * lagValue, 0);
 
-        if(lagValue <= 1 && lagValue >= 0.1)
-            lagValue += (float)(Input.GetAxis("Mouse ScrollWheel"));
-        if (lagValue < 0.1)
-            lagValue = 0.1f;
-        if (lagValue > 1)
-            lagValue = 1;
+        //if(lagValue <= 1 && lagValue >= 0.1)
+        //    lagValue += (float)(Input.GetAxis("Mouse ScrollWheel"));
+        //if (lagValue < 0.1)
+        //    lagValue = 0.1f;
+        //if (lagValue > 1)
+        //    lagValue = 1;
 
         ScreenBounds();
 
@@ -61,9 +61,13 @@ public class PointerController : MonoBehaviour
 
         if (Physics.Raycast(cameraRay, out cameraHit, raycastRange, groceryMask))
         {
-            if(CheckProperty(cameraHit.transform.GetComponent<ItemProperties>()))
+            Transform hitTransform = cameraHit.transform;
+            
+            if(CheckProperty(hitTransform.GetComponent<ItemProperties>()))
             {
-                Destroy(cameraHit.transform.gameObject);
+                ItemProperties selectedItemProperties = hitTransform.GetComponent<ItemProperties>();
+                GameManager.Instance.UpdateScore(selectedItemProperties.cost);
+                selectedItemProperties.itemSpawner.ItemClicked();
             }
         }
     }
@@ -72,11 +76,38 @@ public class PointerController : MonoBehaviour
     {
         foreach(Scriptable_ItemProperty scriptProp in itemProp.itemProperties)
         {
-            if (scriptProp.itemProperty == GameManager.Instance.currentTarget)
+            if (scriptProp.itemProperty == GameManager.Instance.currentCategory)
                 return true;
         }
 
         return false;
+    }
+
+    void DecreaseSensitivity()
+    {
+        lagValue -= 0.15f;
+
+        if (lagValue < 0.1)
+            lagValue = 0.1f;
+    }
+
+    void IncreaseSensitivity()
+    {
+        if (lagValue == 1)
+        {
+            lagValue = 2;
+            StartCoroutine(ResetSensitivity());
+        }
+        else if (lagValue < 0.5f)
+            lagValue += 0.5f;
+        else
+            lagValue = 1;
+    }
+
+    IEnumerator ResetSensitivity()
+    {
+        yield return new WaitForSeconds(1.5f);
+        lagValue = 1;
     }
 
     private void ScreenBounds()
